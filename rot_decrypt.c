@@ -3,6 +3,7 @@
 #include <string.h>
 
 //decoding function prototype that will decrypt something
+
 char decrypt(char *phrase, float key);
 
 int main()
@@ -21,7 +22,7 @@ int main()
         
     //decrypting and printing the decrypted phrase
     printf("the decryption is:\n");
-    decrypt(phrase);    //decoding function
+    decrypt(phrase, key);    //decoding function
     printf(" \n");      //gives new line afterwards    
     return 0;
 }
@@ -32,7 +33,7 @@ char decrypt(char *phrase, float key)
     char i=0;
     while(phrase[i] != 0)
     {
-        phrase[i]=phrase[i]-key;    //shifts it backwards
+        phrase[i] = phrase[i]-key;    //shifts it backwards
         printf("%c", phrase[i]);    //prints each decrypted letter
         i++;
     }

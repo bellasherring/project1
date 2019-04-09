@@ -33,7 +33,7 @@ char encrypt(char *phrase, float key) // encoding function definition
     char i=0;
     while(phrase[i] != 0)
     {
-        phrase[i] = phrase[i] + key;    //shifts it by the key
+        phrase[i] = phrase[i] + key;    //shifts it by the key. wont keep within capital letters though - any ascii character, not just letters
         printf("%c", phrase[i]);
         i++;
     }
