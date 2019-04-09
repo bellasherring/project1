@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 
-//decoding function prototype
+//decoding function prototype that will decrypt something
 char decrypt(char *phrase);
 
 int main()

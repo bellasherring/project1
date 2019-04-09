@@ -4,7 +4,7 @@
 
 //this is a file that will do rotational encryption
 
-char encrypt(char *phrase); //function prototype that will eventually encrypt something
+char encrypt(char *phrase); //function prototype that will eventually encrypt something hopefully
 
 int main()
 {    
