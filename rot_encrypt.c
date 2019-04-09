@@ -4,38 +4,36 @@
 
 //this is a file that will do rotational encryption
 
-char encrypt(char *phrase); //function prototype that will eventually encrypt something hopefully
+char encrypt(char *phrase, float key); //function prototype that will eventually encrypt something hopefully
 
 int main()
 {    
     //introducing variables
-    char encoded; 
-    char phrase[1024]='HELLO'; 
-    int key=6;
-    
+    char phrase[206]; 
+    float key;
+
     //getting the phrase
     printf("enter a phrase to encode: \n");     //prompts phrase to be put in by user
     scanf("%s", phrase);                        //scans the phrase from the user
     
     //allows user to choose a shifting value, the 'key'
     printf("enter a key to shift by: \n");
-    scanf("%d", &key);
+    scanf("%f", &key);
         
     //encrypting and printing the encrypted phrase
     printf("the encryption is:\n");
-    encrypt(phrase);    //encoding function
+    encrypt(phrase, key);    //encoding function
     printf(" \n");      //gives new line afterwards
     
     return 0;
 }
 
-char encrypt(char *phrase) // encoding function definition 
+char encrypt(char *phrase, float key) // encoding function definition 
 {
     char i=0;
-    int key;
-    while(phrase[i] != NULL)
+    while(phrase[i] != 0)
     {
-        phrase[i]=phrase[i]+key;    //shifts it by the key
+        phrase[i] = phrase[i] + key;    //shifts it by the key
         printf("%c", phrase[i]);
         i++;
     }

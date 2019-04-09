@@ -3,14 +3,13 @@
 #include <string.h>
 
 //decoding function prototype that will decrypt something
-char decrypt(char *phrase);
+char decrypt(char *phrase, float key);
 
 int main()
 {
     //introducing variables
-    char encoded; 
     char phrase[1024]; 
-    int key;
+    float key;
     
     //getting the phrase
     printf("enter a phrase to decode: \n");     //prompts phrase to be put in by user
@@ -18,7 +17,7 @@ int main()
     
     //inputs the shifting value, the 'key'
     printf("enter the key it was shifted by: \n");
-    scanf("%d", &key);
+    scanf("%f", &key);
         
     //decrypting and printing the decrypted phrase
     printf("the decryption is:\n");
@@ -28,11 +27,10 @@ int main()
 }
 
 //decoding function definition
-char decrypt(char *phrase)
+char decrypt(char *phrase, float key)
 {
     char i=0;
-    int key; 
-    while(phrase[i] != NULL)
+    while(phrase[i] != 0)
     {
         phrase[i]=phrase[i]-key;    //shifts it backwards
         printf("%c", phrase[i]);    //prints each decrypted letter
