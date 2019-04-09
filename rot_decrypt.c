@@ -10,7 +10,7 @@ int main()
 {
     //introducing variables
     char phrase[1024]; 
-    float key;
+    float key; //key can be between -25 and 25. 0 & 26 imply no encryption
     
     //getting the phrase
     printf("enter a phrase to decode: \n");     //prompts phrase to be put in by user
