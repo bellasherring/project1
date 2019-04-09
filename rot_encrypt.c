@@ -2,6 +2,8 @@
 #include <stdlib.h>
 #include <string.h>
 
+//this is a file that will do rotational encryption
+
 char encrypt(char *phrase); //function prototype that will eventually encrypt something
 
 int main()
