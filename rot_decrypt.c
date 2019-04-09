@@ -33,7 +33,19 @@ char decrypt(char *phrase, float key)
     char i=0;
     while(phrase[i] != 0)
     {
-        phrase[i] = phrase[i]-key;    //shifts it backwards
+        if((phrase[i]-key)>=65 && (phrase[i]-key)<=90) //if it is within the capital letter range and A-OK
+        {
+            phrase[i] = phrase[i] - key;
+        }
+        else if((phrase[i]-key)>90) //if it falls above the capital letter range
+        {
+            phrase[i] = phrase[i] - 26 - key;
+        }
+        else if((phrase[i]-key)<65) //if it falls below the capital letter range
+        {
+            phrase[i] = phrase[i] + 26 - key;
+        }
+        
         printf("%c", phrase[i]);    //prints each decrypted letter
         i++;
     }
