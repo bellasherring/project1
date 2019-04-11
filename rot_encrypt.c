@@ -14,7 +14,7 @@ int main()
 
     //getting the phrase
     printf("enter a phrase to encode in capitals: \n");     //prompts phrase to be put in by user
-    scanf("%s", phrase);                        //scans the phrase from the user
+    scanf("%s", phrase);                        //scans the phrase from the user. wont read spaces
     
     //allows user to choose a shifting value, the 'key'
     printf("enter a key to shift by: \n");
@@ -30,10 +30,14 @@ int main()
 
 char encrypt(char *phrase, float key) // encoding function definition 
 {
-    char i=0;
+    int i=0;
     while(phrase[i] != 0)
     {
-        if((phrase[i]+key)>=65 && (phrase[i]+key)<=90) //if it ends up in the capital letter range dont change it
+        if(phrase[i]=32) //when spaces get read, they should stay as spaces in the encryption
+        {
+            phrase[i] = 32;
+        }
+        else if((phrase[i]+key)>=65 && (phrase[i]+key)<=90) //if it ends up in the capital letter range dont change it
         {
             phrase[i] = phrase[i] + key;
         }

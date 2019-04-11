@@ -33,6 +33,10 @@ char decrypt(char *phrase, float key)
     char i=0;
     while(phrase[i] != 0)
     {
+        if(phrase[i]=32) //when spaces get read, they should stay as spaces in the decryption
+        {
+            phrase[i] = 32;
+        }
         if((phrase[i]-key)>=65 && (phrase[i]-key)<=90) //if it is within the capital letter range and A-OK
         {
             phrase[i] = phrase[i] - key;
