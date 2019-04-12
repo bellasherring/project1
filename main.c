@@ -13,7 +13,7 @@ int main()
 {    
     //choosing process menu
     int choice;
-    printf("Choose a process: \nPress 1 for rotational encryption\nPress 2 for rotational decryption\nPress 3 for substitution encryption\nPress 4 for substitution decryption\n");
+    printf("Choose a process: \nPress 1 for rotational encryption\nPress 2 for rotational decryption\nPress 3 for substitution encryption\nPress 4 for substitution decryption with key\n");
     scanf("%d", &choice);
     
     //introducing variables necessary for the processes
@@ -25,40 +25,40 @@ int main()
     {
         case 1: //rotational encryption
             //getting the phrase
-            printf("enter a phrase to rotationally encrypt in capitals: \n");     //prompts phrase to be put in by user
+            printf("Enter a phrase to rotationally encrypt in capitals: \n");     //prompts phrase to be put in by user
             scanf("%s", phrase);                        //scans the phrase from the user. wont read spaces
     
             //allows user to choose a shifting value, the 'key'
-            printf("enter a key to shift by: \n");
+            printf("Enter a key to shift by: \n");
             scanf("%f", &key);
         
             //encrypting and printing the encrypted phrase
-            printf("the encryption is:\n");
+            printf("The encryption is:\n");
             rotencrypt(phrase, key);    //encoding function
             printf(" \n"); //new line afterwards
             break;
         case 2: //rotational decryption
             //getting the phrase
-            printf("enter a phrase to rotationally decrypt in capitals: \n");     //prompts phrase to be put in by user
+            printf("Enter a phrase to rotationally decrypt in capitals: \n");     //prompts phrase to be put in by user
             scanf("%s", phrase);                        //scans the phrase from the user
     
             //inputs the shifting value, the 'key'
-            printf("enter the key it was shifted by: \n");
+            printf("Enter the key it was shifted by: \n");
             scanf("%f", &key);
         
             //decrypting and printing the decrypted phrase
-            printf("the decryption is:\n");
+            printf("The decryption is:\n");
             rotdecrypt(phrase, key);    //decoding function
             printf(" \n"); //new line afterwards
             break;
         case 3: //substitution encryption
-            printf("not there yet\n");
+            printf("Not there yet\n");
             break;
         case 4: //substitution decryption
-            printf("not there yet\n");
+            printf("Not there yet\n");
             break;
         default: 
-            printf("process chosen is not an option\n");
+            printf("Process chosen is not an option.\n");
     }
 }
 
@@ -104,11 +104,13 @@ char rotdecrypt(char *phrase, float key)
     }
 }
 
+//substitution encryption
 char subencrypt(char *phrase, float key) //substitution encryption
 {
     
 }
 
+//substitution decryption with key
 char subdecrypt(char *phrase, float key) //substitution decryption
 {
     
