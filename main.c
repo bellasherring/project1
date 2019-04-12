@@ -35,6 +35,7 @@ int main()
             //encrypting and printing the encrypted phrase
             printf("the encryption is:\n");
             encrypt(phrase, key);    //encoding function
+            printf(" \n"); //new line afterwards
             break;
         case 2: //rotational decryption
             //getting the phrase
@@ -48,6 +49,7 @@ int main()
             //decrypting and printing the decrypted phrase
             printf("the decryption is:\n");
             decrypt(phrase, key);    //decoding function
+            printf(" \n"); //new line afterwards
             break;
         case 3: //substitution encryption
         case 4: //substitution decryption
@@ -62,14 +64,10 @@ int main()
 //rotational encryption
 char encrypt(char *phrase, float key) 
 {
-    int i=0;
+    char i=0;
     while(phrase[i] != 0)
     {
-        if(phrase[i]=32) //when spaces get read, they should stay as spaces in the encryption
-        {
-            phrase[i] = 32;
-        }
-        else if((phrase[i]+key)>=65 && (phrase[i]+key)<=90) //if it ends up in the capital letter range dont change it
+        if((phrase[i]+key)>=65 && (phrase[i]+key)<=90) //if it ends up in the capital letter range dont change it
         {
             phrase[i] = phrase[i] + key;
         }
@@ -92,10 +90,6 @@ char decrypt(char *phrase, float key) //rotational decryption definition
     char i=0;
     while(phrase[i] != 0)
     {
-        if(phrase[i]=32) //when spaces get read, they should stay as spaces in the decryption
-        {
-            phrase[i] = 32;
-        }
         if((phrase[i]-key)>=65 && (phrase[i]-key)<=90) //if it is within the capital letter range and A-OK
         {
             phrase[i] = phrase[i] - key;
