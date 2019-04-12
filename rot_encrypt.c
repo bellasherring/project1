@@ -11,16 +11,19 @@ char decrypt(char *phrase, float key); //rotational decryption pt
 //choosing which process to carry out, done inside int main
 int main()
 {    
+    //choosing process menu
     int choice;
     printf("Choose a process: \nPress 1 for rotational encryption\n2 for rotational decryption\n3 for substitution encryption\n4 for substitution decryption\n");
     scanf("%d", &choice);
     
+    //introducing variables necessary for the processes
+    char phrase[206];
+    float key; //for rotation. key between 0 and 26
+    
+    //carries out the chosen process
     switch(choice)
     {
         case 1: //rotational encryption
-            char phrase[206]; 
-            float key; //key can be between -25 and 25. 0 & 26 imply no encryption
-
             //getting the phrase
             printf("enter a phrase to encode in capitals: \n");     //prompts phrase to be put in by user
             scanf("%s", phrase);                        //scans the phrase from the user. wont read spaces
@@ -34,9 +37,6 @@ int main()
             encrypt(phrase, key);    //encoding function
             break;
         case 2: //rotational decryption
-            char phrase[1024]; 
-            float key; //key can be between -25 and 25. 0 & 26 imply no encryption
-    
             //getting the phrase
             printf("enter a phrase to decode: \n");     //prompts phrase to be put in by user
             scanf("%s", phrase);                        //scans the phrase from the user
