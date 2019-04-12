@@ -70,20 +70,17 @@ char rotencrypt(char *phrase, float key)
     char i=0;
     while(phrase[i] != 0)
     {
-        if((phrase[i]+key)>=65 && (phrase[i]+key)<=90) //if it ends up in the capital letter range dont change it
+        if((phrase[i]+key)>=65 && (phrase[i]+key)<=90) //if it ends up in the capital letter range, dont change it
         {
-            phrase[i] = phrase[i] + key;
+            phrase[i] = phrase[i] + key; //the new value of the letter (phrase[i]) is the letter shifted by the key
         }
-        else if((phrase[i]+key)>90) //if it ends up above the range, take away 26 and then add the key
+        else //this is for in case the positive key shifts letters above the ascii capital letters range. this will rotate back around into it
         {
             phrase[i] = phrase[i] - 26 + key;
         }
-        else if((phrase[i]+key)<65) //if it ends up below the range, add 26 and then the key
-        {
-            phrase[i] = phrase[i] + 26 + key;
-        }
-        printf("%c", phrase[i]);
-        i++;
+        
+        printf("%c", phrase[i]); //prints each reassigned letter
+        i++; //increments so that the loop goes through each letter
     }
 }
 
@@ -96,10 +93,6 @@ char rotdecrypt(char *phrase, float key)
         if((phrase[i]-key)>=65 && (phrase[i]-key)<=90) //if it is within the capital letter range and A-OK
         {
             phrase[i] = phrase[i] - key;
-        }
-        else if((phrase[i]-key)>90) //if it falls above the capital letter range
-        {
-            phrase[i] = phrase[i] - 26 - key;
         }
         else if((phrase[i]-key)<65) //if it falls below the capital letter range
         {
