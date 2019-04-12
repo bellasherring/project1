@@ -13,7 +13,7 @@ int main()
 {    
     //choosing process menu
     int choice;
-    printf("Choose a process: \nPress 1 for rotational encryption\n2 for rotational decryption\n3 for substitution encryption\n4 for substitution decryption\n");
+    printf("Choose a process: \nPress 1 for rotational encryption\nPress 2 for rotational decryption\nPress 3 for substitution encryption\nPress 4 for substitution decryption\n");
     scanf("%d", &choice);
     
     //introducing variables necessary for the processes
@@ -25,7 +25,7 @@ int main()
     {
         case 1: //rotational encryption
             //getting the phrase
-            printf("enter a phrase to encode in capitals: \n");     //prompts phrase to be put in by user
+            printf("enter a phrase to rotationally encrypt in capitals: \n");     //prompts phrase to be put in by user
             scanf("%s", phrase);                        //scans the phrase from the user. wont read spaces
     
             //allows user to choose a shifting value, the 'key'
@@ -39,7 +39,7 @@ int main()
             break;
         case 2: //rotational decryption
             //getting the phrase
-            printf("enter a phrase to decode: \n");     //prompts phrase to be put in by user
+            printf("enter a phrase to rotationally decrypt in capitals: \n");     //prompts phrase to be put in by user
             scanf("%s", phrase);                        //scans the phrase from the user
     
             //inputs the shifting value, the 'key'
@@ -85,7 +85,7 @@ char encrypt(char *phrase, float key)
 }
 
 //rotational decryption
-char decrypt(char *phrase, float key) //rotational decryption definition
+char decrypt(char *phrase, float key) 
 {
     char i=0;
     while(phrase[i] != 0)
