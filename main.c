@@ -60,7 +60,6 @@ int main()
         default: 
             printf("process chosen is not an option\n");
     }
-
 }
 
 //function definitions
