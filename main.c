@@ -3,10 +3,10 @@
 #include <string.h>
 
 //function prototypes for each process
-char encrypt(char *phrase, float key); //encryption function prototype
-char decrypt(char *phrase, float key); //rotational decryption pt
-//substitution encryption pt
-//substitution decryption pt
+char rotencrypt(char *phrase, float key); //encryption function prototype
+char rotdecrypt(char *phrase, float key); //rotational decryption pt
+char subencrypt(char *phrase, float key); //substitution encryption pt
+char subdecrypt(char *phrase, float key); //substitution decryption pt
 
 //choosing which process to carry out, done inside int main
 int main()
@@ -34,7 +34,7 @@ int main()
         
             //encrypting and printing the encrypted phrase
             printf("the encryption is:\n");
-            encrypt(phrase, key);    //encoding function
+            rotencrypt(phrase, key);    //encoding function
             printf(" \n"); //new line afterwards
             break;
         case 2: //rotational decryption
@@ -48,11 +48,15 @@ int main()
         
             //decrypting and printing the decrypted phrase
             printf("the decryption is:\n");
-            decrypt(phrase, key);    //decoding function
+            rotdecrypt(phrase, key);    //decoding function
             printf(" \n"); //new line afterwards
             break;
         case 3: //substitution encryption
+            printf("not there yet\n");
+            break;
         case 4: //substitution decryption
+            printf("not there yet\n");
+            break;
         default: 
             printf("process chosen is not an option\n");
     }
@@ -62,7 +66,7 @@ int main()
 //function definitions
 
 //rotational encryption
-char encrypt(char *phrase, float key) 
+char rotencrypt(char *phrase, float key) 
 {
     char i=0;
     while(phrase[i] != 0)
@@ -85,7 +89,7 @@ char encrypt(char *phrase, float key)
 }
 
 //rotational decryption
-char decrypt(char *phrase, float key) 
+char rotdecrypt(char *phrase, float key) 
 {
     char i=0;
     while(phrase[i] != 0)
@@ -108,7 +112,13 @@ char decrypt(char *phrase, float key)
     }
 }
 
-//substitution encryption
+char subencrypt(char *phrase, float key) //substitution encryption
+{
+    
+}
 
-//substitution decryption
+char subdecrypt(char *phrase, float key) //substitution decryption
+{
+    
+}
 
