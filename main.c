@@ -7,7 +7,8 @@ char rotencrypt(char *phrase, float key); //encryption function prototype
 char rotdecrypt(char *phrase, float key); //rotational decryption pt
 char subencrypt(char *phrase); //substitution encryption pt
 char alphabetencrypt(char x);
-//char subdecrypt(char *phrase, float key); //substitution decryption pt
+char alphabetdecrypt(char x);
+char subdecrypt(char *phrase); //substitution decryption pt
 
 //choosing which process to carry out, done inside int main
 int main()
@@ -64,7 +65,13 @@ int main()
             printf("\n");
             break;
         case 4: //substitution decryption
-            printf("Not there yet\n");
+            printf("Enter a phrase to substitutionally decrypt in capitals:\n");
+            scanf("%[^\n]s", phrase);
+            
+            //decrypting the phrase
+            printf("The decryption is:\n");
+            subdecrypt(phrase);
+            printf("\n");
             break;
         default: 
             printf("Process chosen is not an option.\n");
@@ -152,4 +159,36 @@ char alphabetencrypt(char x)
     char encryptionKey[200]="QAZXSWEDCVFRTGBNHYUJMKILOP";
     alphabet[x]=encryptionKey[x];
     printf("%c", encryptionKey[x]);
+}
+
+char subdecrypt(char *phrase)
+{
+    char i=0, x=0;
+    char encryptionKey[200]="QAZXSWEDCVFRTGBNHYUJMKILOP";
+    while(phrase[i] != 0)
+    {
+        if(phrase[i]>=32 && phrase[i]<=64) //this makes sure punctuation and numbers are not changed 
+        {
+            phrase[i] = phrase[i];
+            printf("%c", phrase[i]);
+        } 
+        else
+        {
+            while(phrase[i] != encryptionKey[x])
+            {
+                x++;
+            }
+            alphabetdecrypt(x);
+        }
+        i++;
+    }
+}
+
+//alphabet decryption to use in the substitution decryption
+char alphabetdecrypt(char x)
+{
+    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    char encryptionKey[200]="QAZXSWEDCVFRTGBNHYUJMKILOP";
+    encryptionKey[x]=alphabet[x];
+    printf("%c", alphabet[x]);
 }
