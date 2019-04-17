@@ -5,8 +5,8 @@
 //function prototypes for each process
 char rotencrypt(char *phrase, float key); //encryption function prototype
 char rotdecrypt(char *phrase, float key); //rotational decryption pt
-char subencrypt(char *phrase); //substitution encryption pt
-char alphabetencrypt(char x);
+char subencrypt(char *phrase, char *encryptionKey); //substitution encryption pt
+char alphabetencrypt(char *phrase, char x, char *encryptionKey);
 char alphabetdecrypt(char x);
 char subdecrypt(char *phrase); //substitution decryption pt
 
@@ -22,6 +22,8 @@ int main()
     
     //introducing variables necessary for the processes
     char phrase[206];
+    char alphabet[200];
+    char encryptionKey[200];
     float key; //for rotation. key between 0 and 26
     
     //carries out the chosen process
@@ -59,9 +61,12 @@ int main()
             printf("Enter a phrase to substitutionally encrypt in capitals: \n");
             scanf("%[^\n]s", phrase);
             
+            printf("Enter an encyption key, a string of capital letters with no spaces:\n");
+            scanf("%s", encryptionKey);
+            
             //encrypting the phrase
             printf("The encryption is:\n");
-            subencrypt(phrase);
+            subencrypt(phrase, encryptionKey);
             printf("\n");
             break;
         case 4: //substitution decryption
@@ -129,7 +134,7 @@ char rotdecrypt(char *phrase, float key)
 }
 
 //substitution encryption
-char subencrypt(char *phrase) //substitution encryption
+char subencrypt(char *phrase, char *encryptionKey) //substitution encryption
 {
     char i=0, x=0;
     char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -146,17 +151,16 @@ char subencrypt(char *phrase) //substitution encryption
             {
                 x++;
             }
-            alphabetencrypt(x);
+            alphabetencrypt(phrase, x, encryptionKey);
         }
         i++;
     }
 }
 
 //alphabet encryption to use in the substitution encryption
-char alphabetencrypt(char x)
+char alphabetencrypt(char *phrase, char x, char *encryptionKey)
 {
     char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    char encryptionKey[200]="QAZXSWEDCVFRTGBNHYUJMKILOP";
     alphabet[x]=encryptionKey[x];
     printf("%c", encryptionKey[x]);
 }
