@@ -42,7 +42,7 @@ int main()
         case 2: //rotational decryption
             //getting the phrase
             printf("Enter a phrase to rotationally decrypt in capitals: \n");     //prompts phrase to be put in by user
-            scanf("%s", phrase);                        //scans the phrase from the user
+            scanf("%[^\n]s", phrase);                        //scans the phrase from the user
     
             //inputs the shifting value, the 'key'
             printf("Enter the key it was shifted by: \n");
@@ -76,7 +76,6 @@ char rotencrypt(char *phrase, float key)
         {
             phrase[i] = phrase[i] + key; //the new value of the letter (phrase[i]) is the letter shifted by the key
         }
-
         else if((phrase[i]+key)>90)//this is for in case the positive key shifts letters above the ascii capital letters range. this will rotate back around into it
         {
             phrase[i] = phrase[i] - 26 + key;
@@ -97,7 +96,11 @@ char rotdecrypt(char *phrase, float key)
     char i=0;
     while(phrase[i] != 0)
     {
-        if((phrase[i]-key)>=65 && (phrase[i]-key)<=90) //if it is within the capital letter range and A-OK
+        if(phrase[i]>=32 && phrase[i]<=64) //this makes sure punctuation and numbers are not changed 
+        {
+            phrase[i] = phrase[i];
+        }  
+        else if((phrase[i]-key)>=65 && (phrase[i]-key)<=90) //if it is within the capital letter range and A-OK
         {
             phrase[i] = phrase[i] - key;
         }
