@@ -5,8 +5,9 @@
 //function prototypes for each process
 char rotencrypt(char *phrase, float key); //encryption function prototype
 char rotdecrypt(char *phrase, float key); //rotational decryption pt
-char subencrypt(char *phrase, float key); //substitution encryption pt
-char subdecrypt(char *phrase, float key); //substitution decryption pt
+char subencrypt(char *phrase); //substitution encryption pt
+char alphabetencrypt(char x);
+//char subdecrypt(char *phrase, float key); //substitution decryption pt
 
 //choosing which process to carry out, done inside int main
 int main()
@@ -54,7 +55,13 @@ int main()
             printf(" \n"); //new line afterwards
             break;
         case 3: //substitution encryption
-            printf("Not there yet\n");
+            printf("Enter a phrase to substitutionally encrypt in capitals: \n");
+            scanf("%[^\n]s", phrase);
+            
+            //encrypting the phrase
+            printf("The encryption is:\n");
+            subencrypt(phrase);
+            printf("\n");
             break;
         case 4: //substitution decryption
             printf("Not there yet\n");
@@ -115,14 +122,26 @@ char rotdecrypt(char *phrase, float key)
 }
 
 //substitution encryption
-char subencrypt(char *phrase, float key) //substitution encryption
+char subencrypt(char *phrase) //substitution encryption
 {
-    
+    char i=0, x=0;
+    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    while(phrase[i] != 0)
+    {
+        while(phrase[i] != alphabet[x])
+        {
+            x++;
+        }
+        alphabetencrypt(x);
+        i++;
+    }
 }
 
-//substitution decryption with key
-char subdecrypt(char *phrase, float key) //substitution decryption
+//alphabet encryption to use in the substitution encryption
+char alphabetencrypt(char x)
 {
-    
+    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    char encryptionKey[200]="QAZXSWEDCVFRTGBNHYUJMKILOP";
+    alphabet[x]=encryptionKey[x];
+    printf("%c", encryptionKey[x]);
 }
-
