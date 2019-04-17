@@ -128,11 +128,19 @@ char subencrypt(char *phrase) //substitution encryption
     char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     while(phrase[i] != 0)
     {
-        while(phrase[i] != alphabet[x])
+        if(phrase[i]>=32 && phrase[i]<=64) //this makes sure punctuation and numbers are not changed 
         {
-            x++;
+            phrase[i] = phrase[i];
+            printf("%c", phrase[i]);
+        } 
+        else
+        {
+            while(phrase[i] != alphabet[x])
+            {
+                x++;
+            }
+            alphabetencrypt(x);
         }
-        alphabetencrypt(x);
         i++;
     }
 }
