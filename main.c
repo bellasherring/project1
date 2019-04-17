@@ -13,8 +13,10 @@ int main()
 {    
     //choosing process menu
     int choice;
+    char temp;
     printf("Choose a process: \nPress 1 for rotational encryption\nPress 2 for rotational decryption\nPress 3 for substitution encryption\nPress 4 for substitution decryption with key\n");
     scanf("%d", &choice);
+    scanf("%c", &temp);
     
     //introducing variables necessary for the processes
     char phrase[206];
@@ -26,7 +28,7 @@ int main()
         case 1: //rotational encryption
             //getting the phrase
             printf("Enter a phrase to rotationally encrypt in capitals: \n");     //prompts phrase to be put in by user
-            scanf("%s", phrase);                        //scans the phrase from the user. wont read spaces
+            scanf("%[^\n]s", phrase);                        //scans the phrase from the user until it reads a new line
     
             //allows user to choose a shifting value, the 'key'
             printf("Enter a key to shift by: \n");
@@ -74,10 +76,15 @@ char rotencrypt(char *phrase, float key)
         {
             phrase[i] = phrase[i] + key; //the new value of the letter (phrase[i]) is the letter shifted by the key
         }
-        else //this is for in case the positive key shifts letters above the ascii capital letters range. this will rotate back around into it
+
+        else if((phrase[i]+key)>90)//this is for in case the positive key shifts letters above the ascii capital letters range. this will rotate back around into it
         {
             phrase[i] = phrase[i] - 26 + key;
-        }
+        }        
+        else if(phrase[i]>=32 && phrase[i]<=64) //this makes sure punctuation and numbers are not changed 
+        {
+            phrase[i] = phrase[i];
+        }       
         
         printf("%c", phrase[i]); //prints each reassigned letter
         i++; //increments so that the loop goes through each letter
