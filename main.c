@@ -7,6 +7,8 @@ char rotencrypt(char *phrase, float key); //encryption function prototype
 char rotdecrypt(char *phrase, float key); //rotational decryption prototype
 char subencrypt(char *phrase, char *encryptionKey); //substitution encryption prototype
 char subdecrypt(char *phrase, char *encryptionKey); //substitution decryption prototype
+char unseenRotDecrypt();
+char unseenSubDecrypt();
 
 
 //choosing which process to carry out, done inside int main
@@ -79,8 +81,9 @@ int main()
             subdecrypt(phrase, encryptionKey); //calls the decryption function which will decrypt the phrase and print it as well
             printf("\n");
             break;
-        case 5:
-            
+        case 5: //decrypting unseen text encrypted with a rotation cipher
+            printf("Enter phrase that was encrypted: \n");
+            scanf("%[^\n]s", phrase);
             break;
         case 6:
         
