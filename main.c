@@ -5,13 +5,12 @@
 //function prototypes for each process
 char rotencrypt(char *phrase, float key); //encryption function prototype
 
-char rotdecrypt(char *phrase, float key); //rotational decryption pt
+char rotdecrypt(char *phrase, float key); //rotational decryption prototype
 
-char subencrypt(char *phrase, char *encryptionKey); //substitution encryption pt
+char subencrypt(char *phrase, char *encryptionKey); //substitution encryption prototype
 char alphabetencrypt(char *phrase, char x, char *encryptionKey);
 
-char subdecrypt(char *phrase, char *encryptionKey); //substitution decryption pt
-char alphabetdecrypt(char *phrase, char x, char *encryptionKey);
+char subdecrypt(char *phrase); //substitution decryption prototype
 
 
 //choosing which process to carry out, done inside int main
@@ -26,7 +25,7 @@ int main()
     
     //introducing variables necessary for the processes
     char phrase[206];
-    char alphabet[200];
+    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     char encryptionKey[200];
     float key; //for rotation. key between 0 and 26
     
@@ -76,13 +75,9 @@ int main()
         case 4: //substitution decryption
             printf("Enter a phrase to substitutionally decrypt in capitals:\n");
             scanf("%[^\n]s", phrase);
-            
-            printf("Enter an encyption key, a string of capital letters with no spaces:\n");
-            scanf("%s", encryptionKey);
-            
-            //decrypting the phrase
-            printf("The decryption is:\n");
-            subdecrypt(phrase, encryptionKey);
+               
+            subdecrypt(phrase);
+              
             printf("\n");
             break;
         default: 
@@ -173,34 +168,26 @@ char alphabetencrypt(char *phrase, char x, char *encryptionKey)
 }
 
 //substitution decryption
-char subdecrypt(char *phrase, char *encryptionKey)
+char subdecrypt(char *phrase)
 {
-    char i=0, x=0;
-    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    char i=0;
+    char x;
+    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
+    char encryptionKey[200];
+    
+    printf("Enter an encryption key, a string of capital letters with no spaces:\n");
+    scanf("%s", encryptionKey);
+    
+    printf("The decryption is: \n");
     while(phrase[i] != 0)
     {
-        if(phrase[i]>=65 && phrase[i]<=90)
+        x=0;
+        while(phrase[i] != encryptionKey[x])
         {
-            while(phrase[i] != encryptionKey[x])
-            {
-                x++;
-            }
-            alphabetdecrypt(phrase, x, encryptionKey);
+            x++;
         }
-        else if(phrase[i]>=32 && phrase[i]<=64) //this makes sure punctuation and numbers are not changed 
-        {
-            phrase[i] = phrase[i];
-            printf("%c", phrase[i]);
-        } 
+        encryptionKey[x]=alphabet[x];
+        printf("%c", alphabet[x]);
         i++;
     }
-}
-
-//alphabet decryption to use in the substitution decryption
-char alphabetdecrypt(char *phrase, char x, char *encryptionKey)
-{
-    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    //char encryptionKey[200]="QAZXSWEDCVFRTGBNHYUJMKILOP";
-    encryptionKey[x]=alphabet[x];
-    printf("%c", alphabet[x]);
 }
