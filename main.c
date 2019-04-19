@@ -10,7 +10,7 @@ char rotdecrypt(char *phrase, float key); //rotational decryption prototype
 char subencrypt(char *phrase, char *encryptionKey); //substitution encryption prototype
 char alphabetencrypt(char *phrase, char x, char *encryptionKey);
 
-char subdecrypt(char *phrase); //substitution decryption prototype
+char subdecrypt(char *phrase, char *encryptionKey); //substitution decryption prototype
 
 
 //choosing which process to carry out, done inside int main
@@ -64,7 +64,7 @@ int main()
             printf("Enter a phrase to substitutionally encrypt in capitals: \n");
             scanf("%[^\n]s", phrase);
             
-            printf("Enter an encyption key, a string of capital letters with no spaces:\n");
+            printf("Enter an encryption key, a string of capital letters with no spaces:\n");
             scanf("%s", encryptionKey);
             
             //encrypting the phrase
@@ -73,11 +73,14 @@ int main()
             printf("\n");
             break;
         case 4: //substitution decryption
-            printf("Enter a phrase to substitutionally decrypt in capitals:\n");
-            scanf("%[^\n]s", phrase);
-               
-            subdecrypt(phrase);
-              
+            printf("Enter a phrase to substitutionlly decrypt in capitals: \n"); //prompt to enter phrase
+            scanf("%[^\n]s", phrase); //reads phrase put in by user
+
+            printf("Enter the encryption key, a string of capital letters with no spaces: \n"); //prompts encryption key
+            scanf("%s", encryptionKey); //scans encryption key
+
+            printf("The decryption is: \n"); //shows what the next line will be, the decrypted phrase
+            subdecrypt(phrase, encryptionKey); //calls the decryption function which will decrypt the phrase and print it as well
             printf("\n");
             break;
         default: 
@@ -168,26 +171,26 @@ char alphabetencrypt(char *phrase, char x, char *encryptionKey)
 }
 
 //substitution decryption
-char subdecrypt(char *phrase)
+char subdecrypt(char *phrase, char *encryptionKey)
 {
-    char i=0;
-    char x;
-    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ ";
-    char encryptionKey[200];
-    
-    printf("Enter an encryption key, a string of capital letters with no spaces:\n");
-    scanf("%s", encryptionKey);
-    
-    printf("The decryption is: \n");
-    while(phrase[i] != 0)
+    char i=0, x=0; //initialises these variables to 0. i counts through the letters of the phrase, and x counts through the letters of the encryption key and alphabet
+    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //the alphabet being used
+    while(phrase[i] != 0) //while the letter of the phrase is not a new line
     {
-        x=0;
-        while(phrase[i] != encryptionKey[x])
+        if(phrase[i]>=32 && phrase[i]<=64) //if the character is punctuation or a space or something, it remains unchanged
         {
-            x++;
+            printf("%c", phrase[i]); //the character is printed as it was, and it isnt changed
         }
-        encryptionKey[x]=alphabet[x];
-        printf("%c", alphabet[x]);
-        i++;
+        else //if the character is a capital letter, basically
+        {
+            while(phrase[i] != encryptionKey[x]) //while the letter of the phrase doesn't match the letter of the encryption key string
+            {                                       
+                x++; //increment x from 0 so that it moves through each letter of the encryption key string. this will happen until the letter of the phrase matches the letter of the encryption key
+            }
+            phrase[i]=alphabet[x]; //the letter of the encryption string at position x (which is the same as the letter at position i of the phrase) is changed into the letter of the alphabet string at position x, the matching one
+            printf("%c", alphabet[x]); //the letter of the alphabet string at position x is printed
+            x=0; //x is reassigned back to 0 so that next time a letter of the phrase is analysed, the code checks back through the alphabet string from the beginning (x=0)
+        }
+        i++; //this increments i, and therefore makes the code move on to analyse the next letter of the phrase.
     }
 }
