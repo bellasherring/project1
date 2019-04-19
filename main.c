@@ -4,12 +4,8 @@
 
 //function prototypes for each process
 char rotencrypt(char *phrase, float key); //encryption function prototype
-
 char rotdecrypt(char *phrase, float key); //rotational decryption prototype
-
 char subencrypt(char *phrase, char *encryptionKey); //substitution encryption prototype
-char alphabetencrypt(char *phrase, char x, char *encryptionKey);
-
 char subdecrypt(char *phrase, char *encryptionKey); //substitution decryption prototype
 
 
@@ -156,18 +152,11 @@ char subencrypt(char *phrase, char *encryptionKey) //substitution encryption
             {
                 x++;
             }
-            alphabetencrypt(phrase, x, encryptionKey);
+            phrase[i]=encryptionKey[x];
+            printf("%c", encryptionKey[x]);
         }
         i++;
     }
-}
-
-//alphabet encryption to use in the substitution encryption
-char alphabetencrypt(char *phrase, char x, char *encryptionKey)
-{
-    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    alphabet[x]=encryptionKey[x];
-    printf("%c", encryptionKey[x]);
 }
 
 //substitution decryption
