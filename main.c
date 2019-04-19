@@ -15,7 +15,7 @@ int main()
     //choosing process menu
     int choice;
     char temp;
-    printf("Choose a process: \nPress 1 for rotational encryption\nPress 2 for rotational decryption\nPress 3 for substitution encryption\nPress 4 for substitution decryption with key\n");
+    printf("Choose a process: \nPress 1 for rotational encryption\nPress 2 for rotational decryption\nPress 3 for substitution encryption\nPress 4 for substitution decryption with key\nPress 5 for decrypting an unseen text encrypted with a rotation cipher\nPress 6 for decrypting an unseen text encrypted with a substitution cipher\n");
     scanf("%d", &choice);
     scanf("%c", &temp);
     
@@ -78,6 +78,12 @@ int main()
             printf("The decryption is: \n"); //shows what the next line will be, the decrypted phrase
             subdecrypt(phrase, encryptionKey); //calls the decryption function which will decrypt the phrase and print it as well
             printf("\n");
+            break;
+        case 5:
+            
+            break;
+        case 6:
+        
             break;
         default: 
             printf("Process chosen is not an option.\n");
