@@ -86,7 +86,7 @@ int main()
             scanf("%[^\n]s", phrase);
             break;
         case 6:
-        
+            
             break;
         default: 
             printf("Process chosen is not an option.\n");
