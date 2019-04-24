@@ -17,12 +17,12 @@ int main()
     //choosing process menu
     int choice;
     char temp;
-    printf("Choose a process: \nPress 1 for rotational encryption\nPress 2 for rotational decryption\nPress 3 for substitution encryption\nPress 4 for substitution decryption with key\nPress 5 for decrypting an unseen text encrypted with a rotation cipher\nPress 6 for decrypting an unseen text encrypted with a substitution cipher\n");
-    scanf("%d", &choice);
+    printf("Choose a process: \na) rotational encryption\nb) rotational decryption\nc) substitution encryption\nd) substitution decryption with key\ne) decrypting an unseen text encrypted with a rotation cipher\nf) decrypting an unseen text encrypted with a substitution cipher\n");
+    scanf("%c", &choice);
     scanf("%c", &temp);
     
     //introducing variables necessary for the processes
-    char phrase[206];
+    char phrase[2006];
     char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     char encryptionKey[200];
     float key; //for rotation. key between 0 and 26
@@ -30,7 +30,7 @@ int main()
     //carries out the chosen process
     switch(choice)
     {
-        case 1: //rotational encryption
+        case 'a': //rotational encryption
             //getting the phrase
             printf("Enter a phrase to rotationally encrypt in capitals: \n");     //prompts phrase to be put in by user
             scanf("%[^\n]s", phrase);                        //scans the phrase from the user until it reads a new line
@@ -44,7 +44,7 @@ int main()
             rotencrypt(phrase, key);    //encoding function
             printf(" \n"); //new line afterwards
             break;
-        case 2: //rotational decryption
+        case 'b': //rotational decryption
             //getting the phrase
             printf("Enter a phrase to rotationally decrypt in capitals: \n");     //prompts phrase to be put in by user
             scanf("%[^\n]s", phrase);                        //scans the phrase from the user
@@ -58,7 +58,7 @@ int main()
             rotdecrypt(phrase, key);    //decoding function
             printf(" \n"); //new line afterwards
             break;
-        case 3: //substitution encryption
+        case 'c': //substitution encryption
             printf("Enter a phrase to substitutionally encrypt in capitals: \n");
             scanf("%[^\n]s", phrase);
             
@@ -70,7 +70,7 @@ int main()
             subencrypt(phrase, encryptionKey);
             printf("\n");
             break;
-        case 4: //substitution decryption
+        case 'd': //substitution decryption
             printf("Enter a phrase to substitutionlly decrypt in capitals: \n"); //prompt to enter phrase
             scanf("%[^\n]s", phrase); //reads phrase put in by user
 
@@ -81,11 +81,11 @@ int main()
             subdecrypt(phrase, encryptionKey); //calls the decryption function which will decrypt the phrase and print it as well
             printf("\n");
             break;
-        case 5: //decrypting unseen text encrypted with a rotation cipher
+        case 'e': //decrypting unseen text encrypted with a rotation cipher
             printf("Enter phrase that was encrypted: \n");
             scanf("%[^\n]s", phrase);
             break;
-        case 6:
+        case 'f':
             
             break;
         default: 
