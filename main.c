@@ -37,7 +37,7 @@ int main()
     switch(choice)
     {
         case 'a': //rotational encryption  
-            fscanf(rotationshift, "%f", rotationKey);
+            fscanf(rotationshift, "%f", &rotationKey);
             fscanf(input, "%[^\n]s", phrase);
 
             printf("The encryption is:\n");
@@ -45,7 +45,7 @@ int main()
             printf(" \n"); //new line afterwards
             break;
         case 'b': //rotational decryption
-            fscanf(rotationshift, "%f", rotationKey);
+            fscanf(rotationshift, "%f", &rotationKey);
             fscanf(input, "%[^\n]s", phrase);
 
             printf("The decryption is:\n");
