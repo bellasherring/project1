@@ -7,9 +7,6 @@ char rotencrypt(char *phrase, float key); //encryption function prototype
 char rotdecrypt(char *phrase, float key); //rotational decryption prototype
 char subencrypt(char *phrase, char *encryptionKey); //substitution encryption prototype
 char subdecrypt(char *phrase, char *encryptionKey); //substitution decryption prototype
-char unseenRotDecrypt();
-char unseenSubDecrypt();
-
 
 //choosing which process to carry out, done inside int main
 int main()
