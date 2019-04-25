@@ -250,7 +250,7 @@ char subdecrypt(char *phrase, char *encryptionKey)
     {
         if(phrase[i]>=65 && phrase[i]<=90) //if the letter being analysed is a capital letter, this block of code will execute
         {
-            while(phrase[i] != alphabet[x]) //the while loop will continue until the letter phrase[i] matches the letter encryptionKey[x]
+            while(phrase[i] != encryptionKey[x]) //the while loop will continue until the letter phrase[i] matches the letter encryptionKey[x]
             {
                 x++; //x is incremented so that the while loop condition changes each time until the correct value of x is found - the one where the phrase[i] matches a letter of encryptionKey[x]. This then means the corresponding letter of the alphabet can be found at the same position x.
             }
