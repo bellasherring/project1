@@ -115,7 +115,8 @@ This is the rotational encryption function. When it is called, it takes the valu
 to execute the rest of the code. This code takes a message in plain English text (phrase) and a float number (rotationKey). Each letter
 of the phrase is shifted through the alphabet by whatever the rotationKey is - for example if the rotationKey was 1, A would be shifted
 into B, and B into C, etc, so if the word was "ABBA" it would be encrypted into "BCCB". This function prints each encrypted letter one
-at a time to both the screen (stdout) and the file 'output'.
+at a time to both the screen (stdout) and the file 'output'. The rotationKey must be greater than or equal to zero and less than or 
+equal to 26 to work.
 */
 char rotencrypt(char *phrase, float rotationKey) 
 { 
@@ -127,7 +128,7 @@ char rotencrypt(char *phrase, float rotationKey)
         /*
         phrase[i] + rotationKey utilises the ASCII values of each letter. A has the value 65, and Z the value 90. All capital letters are
         within 65 and 90. The rotationKey adds to the value of the phrase[i] ASCII value and therefore results in a new encrypted ASCII 
-        character.
+        character. Only one of these if...else if statements happens in each while loop.
         */
         if(phrase[i]<=64 || phrase[i]>=91) //if the value of the phrase[i] character in the original plain English text message is something other than a capital letter, this block of code will execute
         {
@@ -154,7 +155,7 @@ to execute the rest of the code. This code takes a message in encrypted English 
 of the encrypted phrase has been shifted through the alphabet by whatever the rotationKey is - for example if the rotationKey was 1, A would 
 have been shifted into B, and B into C, etc, so if the word was "ABBA" it would be encrypted into "BCCB". This function shifts an 
 encrypted message back into plain English text by this principle, and prints each encrypted letter one at a time to both the screen (stdout) 
-and the file 'output'.
+and the file 'output'. The rotationKey must be greater than or equal to zero and less than or equal to 26 to work.
 */
 char rotdecrypt(char *phrase, float rotationKey) 
 {   
@@ -166,78 +167,106 @@ char rotdecrypt(char *phrase, float rotationKey)
         /*
         phrase[i] - rotationKey utilises the ASCII values of each letter. A has the value 65, and Z the value 90. All capital letters are
         within 65 and 90. The rotationKey is taken away from the value of the phrase[i] ASCII value and therefore results in a new decrypted 
-        ASCII character as it shifts it back into the original plain English version rather than the shifted cipher version.
+        ASCII character as it shifts it back into the original plain English version rather than the shifted cipher version. Only one of
+        these if .. else if statements happens for each while loop.
         */
         if(phrase[i]<=64 || phrase[i]>=91) //if the value of the phrase[i] character in the original plain English text message is something other than a capital letter, this block of code will execute
         {
             phrase[i] = phrase[i]; //phrase[i] remains unchanged
         }  
-        else if((phrase[i]-rotationKey)>=65 && (phrase[i]-rotationKey)<=90) //if the new decrypted ASCII falls within the capital letter range of 65 and 90 (i.e. it remains a capital letter not a different ASCII character that isn't English) 
+        else if((phrase[i]-rotationKey)>=65 && (phrase[i]-rotationKey)<=90) //if the new decrypted ASCII falls within the capital letter range of 65 and 90 (i.e. it remains a capital letter not a different ASCII character that isn't English) this block of code will execute
         {
-            phrase[i] = phrase[i] - rotationKey;
+            phrase[i] = phrase[i] - rotationKey; //the ASCII value of phrase[i] is shifted back by the rotationKey in order to decrypt it into the plain English ASCII character
         }
-        else if((phrase[i]-rotationKey)<65)
+        else if((phrase[i]-rotationKey)<65) //if the new decrypted ASCII value falls below the capital letter range
         {
-            phrase[i] = phrase[i] + 26 - rotationKey;
+            phrase[i] = phrase[i] + 26 - rotationKey; //phrase[i] is shifted back by the rotationKey, but 26 is added (the number of letters in the alphabet) so that it stays within the capital letter range
         }
-        fprintf(output, "%c", phrase[i]);
-        printf("%c", phrase[i]);   
-        i++;
+        fprintf(output, "%c", phrase[i]); //prints the decrypted letter to the file 'output'
+        printf("%c", phrase[i]); //prints the decrypted letter to the screen (stdout)
+        i++; //increments i, the variable that counts through each letter of the phrase/message, so that the next while loop execution will read and decrypt the next character of the phrase/message
     }
 }
 
-//substitution encryption
+/*
+This is the substitution encryption function. When it is called, it takes the values for phrase and encryptionKey (these are the arguments)
+and uses them in its body to execute the rest of the code. This code takes a message in plain English text (phrase) and a string of 26 
+capital letters (encryptionKey). Each letter of the phrase is replaced by a random letter of the alphabet depending on the substitution 
+cipher string. For example, if the encryptionKey was QAZXSWEDCVFRTGBNHYUJMKILOP, A would be encrypted as Q, and B as A - so if the word was 
+"ABBA" it would be encrypted into "QAAQ". In other words, the letter of the alphabet at position 'p' is encrypted into the letter of the 
+encryptionKey at position 'p'. This function encrypts a plain text message back into encrypted text by this principle, and prints
+each encrypted letter one at a time to both the screen (stdout) and the file 'output'.
+*/
 char subencrypt(char *phrase, char *encryptionKey)
 {  
-    char i=0, x=0;
-    FILE *output;
+    char i=0; //declares and initialises the char variable i, which will be used to count through each letter of the phrase/message. It is set to 0 in order to begin at the first letter.
+    char x=0; //declares and initialises the char variable x, which will be used to count through the alphabet in order to match each letter of the phrase to the alphabet, so that it can then be changed into the corresponding letter of the cipher text. x marks this position
+    FILE *output; //declares the file which will be referred to as output in the code whenever it is used
     output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'
-    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-    while(phrase[i] != 0)
+    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //declares and initialises a string as the alphabet. Each letter of the phrase will be matched to this until the correct one is found, so it can be changed into the corresponding letter of the cipher text.
+    while(phrase[i] != 0) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
     {
-        if(phrase[i]>=65 && phrase[i]<=90)
+        if(phrase[i]>=65 && phrase[i]<=90) //if the letter being analysed is a capital letter, this block of code will execute
         {
-            while(phrase[i] != alphabet[x])
+            while(phrase[i] != alphabet[x]) //the while loop will continue until the letter phrase[i] matches the letter alphabet[x]
             {
-                x++;
+                x++; //x is incremented so that the while loop condition changes each time until the correct value of x is found - the one where the phrase[i] matches a letter of alphabet[x]. This then means the corresponding letter of the encryptionKey can be found at the same position x.
             }
-            printf("%c", encryptionKey[x]);
-            fprintf(output, "%c", encryptionKey[x]);
-            x=0;
+            /*
+            Now that phrase[i]'s position in the alphabet has been found (it is at position 'x'), the letter that it should be 
+            encrypted into is known. It is the letter at position x in the encryptionKey string.
+            */     
+            printf("%c", encryptionKey[x]); //prints the value of the char encryptionKey[x] (the encrypted value of phrase[i]) to the screen
+            fprintf(output, "%c", encryptionKey[x]); //prints the value of the char encryptionKey[x] (the encrypted value of phrase[i]) to the file 'output'
+            x=0; //reinitialises x to 0 so that the analysis of the next letter starts at the beginning of the alphabet, not wherever it left off after the previous analysis
         }
-        else 
+        else //if phrase[i] is something other than a capital letter, this block of code will be executed. phrase[i] remains unchanged so numbers or other characters aren't changed in the encrypted text
         {
-            printf("%c", phrase[i]);
-            fprintf(output, "%c", phrase[i]);
+            printf("%c", phrase[i]); //the char phrase[i] is printed to the screen unchanged
+            fprintf(output, "%c", phrase[i]); //the char phrase[i] is printed to the file 'output' unchanged
         }
-        i++; 
+        i++; //increments i so that for the next while loop, the next letter of the phrase is analysed and encrypted
     }
 }
 
-//substitution decryption
+/*
+This is the substitution decryption function. When it is called, it takes the values for phrase and encryptionKey (these are the arguments)
+and uses them in its body to execute the rest of the code. This code takes a message in encrypted English text (phrase) and a string of 26 
+capital letters (encryptionKey). Each letter of the encrypted phrase is replaced by the corresponding letter of the alphabet depending 
+on the substitution cipher string, so that the message is returned into plain English text. For example, if the encryptionKey was 
+QAZXSWEDCVFRTGBNHYUJMKILOP, Q would be decrypted back to A, and A would be decrypted back to B - so if the encryption was "QAAQ" 
+the decryption would be "ABBA". In other words, the letter of the encryptionKey at position 'p' is decrypted into the letter of the 
+alphabet at position 'p'. This function decrypts an encrypted text message back into plain English text by this principle, and prints
+each decrypted letter one at a time to both the screen (stdout) and the file 'output'.
+*/
 char subdecrypt(char *phrase, char *encryptionKey)
 {
-    char i=0, x=0; 
-    FILE *output;
+char i=0; //declares and initialises the char variable i, which will be used to count through each letter of the phrase/message. It is set to 0 in order to begin at the first letter.
+    char x=0; //declares and initialises the char variable x, which will be used to count through the alphabet in order to match each letter of the phrase to the alphabet, so that it can then be changed into the corresponding letter of the cipher text. x marks this position
+    FILE *output; //declares the file which will be referred to as output in the code whenever it is used
     output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'
-    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
-    while(phrase[i] != 0) 
+    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //declares and initialises a string as the alphabet. Each letter of the phrase will be matched to this until the correct one is found, so it can be changed into the corresponding letter of the cipher text.
+    while(phrase[i] != 0) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
     {
-        if(phrase[i]>=65 && phrase[i]<=90)
+        if(phrase[i]>=65 && phrase[i]<=90) //if the letter being analysed is a capital letter, this block of code will execute
         {
-            while(phrase[i] != encryptionKey[x])
+            while(phrase[i] != alphabet[x]) //the while loop will continue until the letter phrase[i] matches the letter encryptionKey[x]
             {
-                x++;
+                x++; //x is incremented so that the while loop condition changes each time until the correct value of x is found - the one where the phrase[i] matches a letter of encryptionKey[x]. This then means the corresponding letter of the alphabet can be found at the same position x.
             }
-            printf("%c", alphabet[x]);
-            fprintf(output, "%c", alphabet[x]);
-            x=0;
+            /*
+            Now that phrase[i]'s position in the encryptionKey has been found (it is at position 'x'), the letter that it should be 
+            decrypted back to is known. It is the letter at position x in the alphabet string.
+            */            
+            printf("%c", alphabet[x]); //prints the value of the char alphabet[x] (the decrypted value of phrase[i]) to the screen
+            fprintf(output, "%c", alphabet[x]); //prints the value of the char alphabet[x] (the decrypted value of phrase[i]) to the file 'output'
+            x=0; //reinitialises x to 0 so that the analysis of the next letter starts at the beginning of the encryptionKey, not wherever it left off after the previous analysis
         }
-        else
+        else //if phrase[i] is something other than a capital letter, this block of code will be executed. phrase[i] remains unchanged so numbers or other characters aren't changed in the decrypted text
         {
-            printf("%c", phrase[i]);
-            fprintf(output, "%c", phrase[i]);
+            printf("%c", phrase[i]); //the char phrase[i] is printed to the screen unchanged
+            fprintf(output, "%c", phrase[i]); //the char phrase[i] is printed to the file 'output' unchanged
         }
-        i++; 
+        i++; //increments i so that for the next while loop, the next letter of the phrase is analysed and decrypted 
     }
 }
