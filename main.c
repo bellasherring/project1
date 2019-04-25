@@ -19,15 +19,15 @@ cipher key string.
 These are function prototypes. They 'declare' each of the functions that are created to execute specific
 chunks of code within this program. The formatting is returnValue functionName(argument1, argument2);
 */
-char rotencrypt(char *phrase, float rotationKey); //encryption function prototype
-char rotdecrypt(char *phrase, float rotationKey); //rotational decryption prototype
-char subencrypt(char *phrase, char *encryptionKey); //substitution encryption prototype
-char subdecrypt(char *phrase, char *encryptionKey); //substitution decryption prototype
+char rotencrypt(char *phrase, float rotationKey); //rotational encryption function prototype
+char rotdecrypt(char *phrase, float rotationKey); //rotational decryption function prototype
+char subencrypt(char *phrase, char *encryptionKey); //substitution encryption function prototype
+char subdecrypt(char *phrase, char *encryptionKey); //substitution decryption function prototype
 
 int main()
 {    
     char choice; //this declares the variable choice, a character which will store the process chosen by the user in the menu
-    char phrase[2048]; //declares the phrase variable, a string in which the message will be stored so that it can be accessed in functions. It is of type char with a size of 2048.
+    char phrase[1073741]; //declares the phrase variable, a string in which the message will be stored so that it can be accessed in functions. It is of type char with a size of 2048.
     char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //declares the alphabet string and initialises it to ABCDEFGHIJKLMNOPQRSTUVWXYZ
     char encryptionKey[200]; //declares the substitution encryption key variable, a string in which the substitution cipher key will be stored so that it can be accessed in functions.
     float rotationKey; //declares the rotational encryption key variable, a float number in which the shifting value for rotation encryptions will be stored so that it can be accessed in functions
@@ -241,7 +241,7 @@ each decrypted letter one at a time to both the screen (stdout) and the file 'ou
 */
 char subdecrypt(char *phrase, char *encryptionKey)
 {
-char i=0; //declares and initialises the char variable i, which will be used to count through each letter of the phrase/message. It is set to 0 in order to begin at the first letter.
+    char i=0; //declares and initialises the char variable i, which will be used to count through each letter of the phrase/message. It is set to 0 in order to begin at the first letter.
     char x=0; //declares and initialises the char variable x, which will be used to count through the alphabet in order to match each letter of the phrase to the alphabet, so that it can then be changed into the corresponding letter of the cipher text. x marks this position
     FILE *output; //declares the file which will be referred to as output in the code whenever it is used
     output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'
