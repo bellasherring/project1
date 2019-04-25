@@ -31,6 +31,9 @@ int main()
     FILE *rotationshift;
     rotationshift = fopen("rotationEncryptionKey.txt", "r");
     
+    FILE *output;
+    output = fopen("messageOutput.txt", "w");
+    
     //carries out the chosen process
     switch(choice)
     {
@@ -83,7 +86,9 @@ int main()
 //rotational encryption
 char rotencrypt(char *phrase, float rotationKey) 
 { 
-    char i=0;    
+    char i=0; 
+    FILE *output;
+    output = fopen("messageOutput.txt", "w");
     while(phrase[i] != 0)
     {
         if((phrase[i]+rotationKey)>=65 && (phrase[i]+rotationKey)<=90) //if it ends up in the capital letter range, dont change it
@@ -100,6 +105,7 @@ char rotencrypt(char *phrase, float rotationKey)
         }       
         
         printf("%c", phrase[i]); //prints each reassigned letter
+        fprintf(output, "%c", phrase[i]);
         i++; //increments so that the loop goes through each letter
     }
 }
@@ -107,7 +113,9 @@ char rotencrypt(char *phrase, float rotationKey)
 //rotational decryption
 char rotdecrypt(char *phrase, float rotationKey) 
 {   
-    char i=0;    
+    char i=0;
+    FILE *output;
+    output = fopen("messageOutput.txt", "w");
     while(phrase[i] != 0)
     {
         if(phrase[i]>=32 && phrase[i]<=64) //this makes sure punctuation and numbers are not changed 
@@ -122,7 +130,7 @@ char rotdecrypt(char *phrase, float rotationKey)
         {
             phrase[i] = phrase[i] + 26 - rotationKey;
         }
-        
+        fprintf(output, "%c", phrase[i]);
         printf("%c", phrase[i]);    //prints each decrypted letter
         i++;
     }
@@ -132,6 +140,8 @@ char rotdecrypt(char *phrase, float rotationKey)
 char subencrypt(char *phrase, char *encryptionKey) //substitution encryption
 {  
     char i=0, x=0;
+    FILE *output;
+    output = fopen("messageOutput.txt", "w");
     char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     while(phrase[i] != 0)
     {
@@ -142,11 +152,13 @@ char subencrypt(char *phrase, char *encryptionKey) //substitution encryption
                 x++;
             }
             printf("%c", encryptionKey[x]);
+            fprintf(output, "%c", encryptionKey[x]);
             x=0;
         }
         else 
         {
             printf("%c", phrase[i]);
+            fprintf(output, "%c", phrase[i]);
         }
         i++; 
     }
@@ -156,6 +168,8 @@ char subencrypt(char *phrase, char *encryptionKey) //substitution encryption
 char subdecrypt(char *phrase, char *encryptionKey)
 {
     char i=0, x=0; 
+    FILE *output;
+    output = fopen("messageOutput.txt", "w");
     char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; 
     while(phrase[i] != 0) 
     {
@@ -166,11 +180,13 @@ char subdecrypt(char *phrase, char *encryptionKey)
                 x++;
             }
             printf("%c", alphabet[x]);
+            fprintf(output, "%c", alphabet[x]);
             x=0;
         }
         else
         {
             printf("%c", phrase[i]);
+            fprintf(output, "%c", phrase[i]);
         }
         i++; 
     }
