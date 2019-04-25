@@ -204,7 +204,7 @@ char subencrypt(char *phrase, char *encryptionKey)
     FILE *output; //declares the file which will be referred to as output in the code whenever it is used
     output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'
     char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //declares and initialises a string as the alphabet. Each letter of the phrase will be matched to this until the correct one is found, so it can be changed into the corresponding letter of the cipher text.
-    while(phrase[i] != 0) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
+    while(phrase[i] !=  0) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
     {
         if(phrase[i]>=65 && phrase[i]<=90) //if the letter being analysed is a capital letter, this block of code will execute
         {
