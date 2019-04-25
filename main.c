@@ -141,28 +141,38 @@ char rotencrypt(char *phrase, float rotationKey)
         else if((phrase[i]+rotationKey)>90) //if the new encrypted ASCII value would fall above the capital letter range (above 90) this block of code will execute
         {
             phrase[i] = phrase[i] - 26 + rotationKey; //phrase[i] is reassigned a new value - itself plus the rotationKey minus 26 (the number of letters in the alphabet) in order to stay within the range of capital letters. 
-        }        
- 
-        
-        printf("%c", phrase[i]); 
-        fprintf(output, "%c", phrase[i]);
-        i++; 
+        }         
+        printf("%c", phrase[i]); //prints each character phrase[i] to the screen
+        fprintf(output, "%c", phrase[i]); //prints each character phrase[i] to the file 'output'
+        i++; //increments the value of i (the variable that counts through the letters of the phrase) so that the process within the while loop is executed for each letter consecutively
     }
 }
 
-//rotational decryption
+/*
+This is the rotational decryption function. When it is called, it takes the values for phrase and rotationKey and uses them in its body
+to execute the rest of the code. This code takes a message in encrypted English text (phrase) and a float number (rotationKey). Each letter
+of the encrypted phrase has been shifted through the alphabet by whatever the rotationKey is - for example if the rotationKey was 1, A would 
+have been shifted into B, and B into C, etc, so if the word was "ABBA" it would be encrypted into "BCCB". This function shifts an 
+encrypted message back into plain English text by this principle, and prints each encrypted letter one at a time to both the screen (stdout) 
+and the file 'output'.
+*/
 char rotdecrypt(char *phrase, float rotationKey) 
 {   
-    char i=0;
-    FILE *output;
+    char i=0; //i is the variable that will count through each individual character of the phrase string. It is initialised as 0 to start at the beginning of the string.
+    FILE *output; //declares the file which will be referred to as output in the code whenever it is used
     output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'
-    while(phrase[i] != 0)
+    while(phrase[i] != 0) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
     {
-        if(phrase[i]>=32 && phrase[i]<=64)  
+        /*
+        phrase[i] - rotationKey utilises the ASCII values of each letter. A has the value 65, and Z the value 90. All capital letters are
+        within 65 and 90. The rotationKey is taken away from the value of the phrase[i] ASCII value and therefore results in a new decrypted 
+        ASCII character as it shifts it back into the original plain English version rather than the shifted cipher version.
+        */
+        if(phrase[i]<=64 || phrase[i]>=91) //if the value of the phrase[i] character in the original plain English text message is something other than a capital letter, this block of code will execute
         {
-            phrase[i] = phrase[i];
+            phrase[i] = phrase[i]; //phrase[i] remains unchanged
         }  
-        else if((phrase[i]-rotationKey)>=65 && (phrase[i]-rotationKey)<=90) 
+        else if((phrase[i]-rotationKey)>=65 && (phrase[i]-rotationKey)<=90) //if the new decrypted ASCII falls within the capital letter range of 65 and 90 (i.e. it remains a capital letter not a different ASCII character that isn't English) 
         {
             phrase[i] = phrase[i] - rotationKey;
         }
