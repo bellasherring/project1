@@ -3,7 +3,7 @@
 #include <string.h>
 
 //function prototypes for each process
-char rotencrypt(char *phrase, float key); //encryption function prototype
+char rotencrypt(float key); //encryption function prototype
 char rotdecrypt(char *phrase, float key); //rotational decryption prototype
 char subencrypt(char *phrase, char *encryptionKey); //substitution encryption prototype
 char subdecrypt(char *phrase, char *encryptionKey); //substitution decryption prototype
@@ -29,8 +29,8 @@ int main()
     {
         case 'a': //rotational encryption
             //getting the phrase
-            printf("Enter a phrase to rotationally encrypt in capitals: \n");     //prompts phrase to be put in by user
-            scanf("%[^\n]s", phrase);                        //scans the phrase from the user until it reads a new line
+            //printf("Enter a phrase to rotationally encrypt in capitals: \n");     //prompts phrase to be put in by user
+            //scanf("%[^\n]s", phrase);                        //scans the phrase from the user until it reads a new line
     
             //allows user to choose a shifting value, the 'key'
             printf("Enter a key to shift by: \n");
@@ -38,7 +38,7 @@ int main()
         
             //encrypting and printing the encrypted phrase
             printf("The encryption is:\n");
-            rotencrypt(phrase, key);    //encoding function
+            rotencrypt(key);    //encoding function
             printf(" \n"); //new line afterwards
             break;
         case 'b': //rotational decryption
@@ -93,9 +93,13 @@ int main()
 //function definitions
 
 //rotational encryption
-char rotencrypt(char *phrase, float key) 
+char rotencrypt(float key) 
 {
     char i=0;
+    char phrase[2048];
+    FILE *input;
+    input = fopen("data.txt", "r");
+    fscanf(input, "%[^\n]s", phrase);     
     while(phrase[i] != 0)
     {
         if((phrase[i]+key)>=65 && (phrase[i]+key)<=90) //if it ends up in the capital letter range, dont change it
