@@ -153,6 +153,7 @@ char subencrypt(char *phrase, char *encryptionKey) //substitution encryption
                 x++;
             }
             printf("%c", encryptionKey[x]);
+            x=0;
         }
         else 
         {
