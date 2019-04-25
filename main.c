@@ -4,7 +4,7 @@
 
 //function prototypes for each process
 char rotencrypt(float key); //encryption function prototype
-char rotdecrypt(char *phrase, float key); //rotational decryption prototype
+char rotdecrypt(float key); //rotational decryption prototype
 char subencrypt(char *phrase, char *encryptionKey); //substitution encryption prototype
 char subdecrypt(char *phrase, char *encryptionKey); //substitution decryption prototype
 
@@ -43,8 +43,8 @@ int main()
             break;
         case 'b': //rotational decryption
             //getting the phrase
-            printf("Enter a phrase to rotationally decrypt in capitals: \n");     //prompts phrase to be put in by user
-            scanf("%[^\n]s", phrase);                        //scans the phrase from the user
+            //printf("Enter a phrase to rotationally decrypt in capitals: \n");     //prompts phrase to be put in by user
+            //scanf("%[^\n]s", phrase);                        //scans the phrase from the user
     
             //inputs the shifting value, the 'key'
             printf("Enter the key it was shifted by: \n");
@@ -52,7 +52,7 @@ int main()
         
             //decrypting and printing the decrypted phrase
             printf("The decryption is:\n");
-            rotdecrypt(phrase, key);    //decoding function
+            rotdecrypt(key);    //decoding function
             printf(" \n"); //new line afterwards
             break;
         case 'c': //substitution encryption
@@ -121,9 +121,13 @@ char rotencrypt(float key)
 }
 
 //rotational decryption
-char rotdecrypt(char *phrase, float key) 
+char rotdecrypt(float key) 
 {
-    char i=0;
+    char phrase[2048];
+    FILE *input;
+    input = fopen("data.txt", "r");
+    fscanf(input, "%[^\n]s", phrase);     
+    char i=0;    
     while(phrase[i] != 0)
     {
         if(phrase[i]>=32 && phrase[i]<=64) //this makes sure punctuation and numbers are not changed 
