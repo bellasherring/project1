@@ -12,11 +12,9 @@ char subdecrypt(char *phrase, char *encryptionKey); //substitution decryption pr
 int main()
 {    
     char choice;
-    char temp;
     printf("Enter your data (message and encryption keys) into the appropriate files. \n");
     printf("Choose a process: \na) rotational encryption\nb) rotational decryption\nc) substitution encryption\nd) substitution decryption with key\ne) decrypting an unseen text encrypted with a rotation cipher\nf) decrypting an unseen text encrypted with a substitution cipher\n");
     scanf("%c", &choice);
-    scanf("%c", &temp);
     
     //introducing variables necessary for the processes
     char phrase[2048];
