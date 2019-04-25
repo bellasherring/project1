@@ -5,7 +5,7 @@
 //function prototypes for each process
 char rotencrypt(float key); //encryption function prototype
 char rotdecrypt(float key); //rotational decryption prototype
-char subencrypt(char *phrase, char *encryptionKey); //substitution encryption prototype
+char subencrypt(char *encryptionKey); //substitution encryption prototype
 char subdecrypt(char *phrase, char *encryptionKey); //substitution decryption prototype
 
 //choosing which process to carry out, done inside int main
@@ -56,15 +56,15 @@ int main()
             printf(" \n"); //new line afterwards
             break;
         case 'c': //substitution encryption
-            printf("Enter a phrase to substitutionally encrypt in capitals: \n");
-            scanf("%[^\n]s", phrase);
+            //printf("Enter a phrase to substitutionally encrypt in capitals: \n");
+            //scanf("%[^\n]s", phrase);
             
             printf("Enter an encryption key, a string of capital letters with no spaces:\n");
             scanf("%s", encryptionKey);
             
             //encrypting the phrase
             printf("The encryption is:\n");
-            subencrypt(phrase, encryptionKey);
+            subencrypt(encryptionKey);
             printf("\n");
             break;
         case 'd': //substitution decryption
@@ -149,8 +149,12 @@ char rotdecrypt(float key)
 }
 
 //substitution encryption
-char subencrypt(char *phrase, char *encryptionKey) //substitution encryption
+char subencrypt(char *encryptionKey) //substitution encryption
 {
+    char phrase[2048];
+    FILE *input;
+    input = fopen("data.txt", "r");
+    fscanf(input, "%[^\n]s", phrase);     
     char i=0, x=0;
     char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     while(phrase[i] != 0)
