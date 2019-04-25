@@ -95,11 +95,11 @@ int main()
 //rotational encryption
 char rotencrypt(float key) 
 {
-    char i=0;
     char phrase[2048];
     FILE *input;
     input = fopen("data.txt", "r");
     fscanf(input, "%[^\n]s", phrase);     
+    char i=0;    
     while(phrase[i] != 0)
     {
         if((phrase[i]+key)>=65 && (phrase[i]+key)<=90) //if it ends up in the capital letter range, dont change it
