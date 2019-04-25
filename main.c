@@ -55,7 +55,7 @@ int main()
             break;
         case 'c': //substitution encryption
             fscanf(substitutionkey, "%s", encryptionKey);
-            fscanf(input, "[^\n]s", phrase);
+            fscanf(input, "%[^\n]s", phrase);
             
             printf("The encryption is:\n");
             subencrypt(phrase, encryptionKey);
