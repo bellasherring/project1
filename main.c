@@ -138,7 +138,6 @@ char rotencrypt(char *phrase, float rotationKey)
         {
             phrase[i] = phrase[i] + rotationKey; //phrase[i] is reassigned a new value - itself plus the rotationKey, which makes it into the new encrypted ASCII character.
         }
-    
         else if((phrase[i]+rotationKey)>90) //if the new encrypted ASCII value would fall above the capital letter range (above 90) this block of code will execute
         {
             phrase[i] = phrase[i] - 26 + rotationKey; //phrase[i] is reassigned a new value - itself plus the rotationKey minus 26 (the number of letters in the alphabet) in order to stay within the range of capital letters. 
