@@ -8,7 +8,7 @@ The content of the input files should be edited beforehand. data.txt should hold
 encrypted or decrypted all on one line, rotationEncryptionKey.txt should hold the integer shifting value
 for a rotation encryption/decryption, and substitutionEncryptionKey.txt should hold the substitution
 cipher key string.
-*/
+*/\
 
 //Header files which include declarations of all of the functions used in the code such as fscanf and printf
 #include <stdio.h>
