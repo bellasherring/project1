@@ -1,4 +1,4 @@
-ovin was greatgo/* 
+/* 
 This code allows the user to choose between 4 process options: rotational encryption, rotational decryption, 
 substitution encryption, and substitution decryption. It reads data from files and then either 
 encrypts/decrypts the data within separate functions. To choose the process, a menu is printed to the screen,
@@ -9,7 +9,7 @@ encrypted or decrypted all on one line, rotationEncryptionKey.txt should hold th
 for a rotation encryption/decryption, and substitutionEncryptionKey.txt should hold the substitution
 cipher key string.
 */
-//
+
 //Header files which include declarations of all of the functions used in the code such as fscanf and printf
 #include <stdio.h>
 #include <stdlib.h>
