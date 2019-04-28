@@ -27,7 +27,7 @@ char subdecrypt(char *phrase, char *encryptionKey); //substitution decryption fu
 int main()
 {    
     char choice; //this declares the variable choice, a character which will store the process chosen by the user in the menu
-    char phrase[1073741]; //declares the phrase variable, a string in which the message will be stored so that it can be accessed in functions. It is of type char with a size of 2048.
+    char phrase[1024]; //declares the phrase variable, a string in which the message will be stored so that it can be accessed in functions. It is of type char with a size of 2048.
     char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //declares the alphabet string and initialises it to ABCDEFGHIJKLMNOPQRSTUVWXYZ
     char encryptionKey[200]; //declares the substitution encryption key variable, a string in which the substitution cipher key will be stored so that it can be accessed in functions.
     float rotationKey; //declares the rotational encryption key variable, a float number in which the shifting value for rotation encryptions will be stored so that it can be accessed in functions
@@ -123,7 +123,11 @@ char rotencrypt(char *phrase, float rotationKey)
     char i=0; //i is the variable that will count through each individual character of the phrase string. It is initialised as 0 to start at the beginning of the string.
     FILE *output; //declares the file which will be referred to as output in the code whenever it is used
     output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'
-    while(phrase[i] != 0) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
+    FILE *input;
+    input = fopen("data.txt", "r");
+    fscanf(input, "%[^\n]s", phrase);
+    
+    while(i<=100) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
     {
         /*
         phrase[i] + rotationKey utilises the ASCII values of each letter. A has the value 65, and Z the value 90. All capital letters are
@@ -142,10 +146,10 @@ char rotencrypt(char *phrase, float rotationKey)
         {
             phrase[i] = phrase[i] - 26 + rotationKey; //phrase[i] is reassigned a new value - itself plus the rotationKey minus 26 (the number of letters in the alphabet) in order to stay within the range of capital letters. 
         }         
-        printf("%c", phrase[i]); //prints each character phrase[i] to the screen
-        fprintf(output, "%c", phrase[i]); //prints each character phrase[i] to the file 'output'
         i++; //increments the value of i (the variable that counts through the letters of the phrase) so that the process within the while loop is executed for each letter consecutively
     }
+    printf("%s", phrase); //prints each character phrase[i] to the screen
+    fprintf(output, "%s", phrase); //prints each character phrase[i] to the file 'output'
 }
 
 /*
