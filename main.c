@@ -122,11 +122,7 @@ char rotencrypt(char *phrase, float rotationKey)
 { 
     int i=0; //i is the integer variable that will count through each individual character of the phrase string. It is initialised as 0 to start at the beginning of the string.
     FILE *output; //declares the file which will be referred to as output in the code whenever it is used
-    output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'
-    FILE *input;
-    input = fopen("data.txt", "r");
-    fscanf(input, "%[^\n]s", phrase);
-    
+    output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'    
     while(phrase[i] != EOF) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
     {
         /*
