@@ -23,14 +23,18 @@ char rotencrypt(char *phrase, float rotationKey); //rotational encryption functi
 char rotdecrypt(char *phrase, float rotationKey); //rotational decryption function prototype
 char subencrypt(char *phrase, char *encryptionKey); //substitution encryption function prototype
 char subdecrypt(char *phrase, char *encryptionKey); //substitution decryption function prototype
+char unseenrotdecrypt(char *phrase, float rotationKey); //unseen rotational decryption function prototype
 
 int main()
 {    
     char choice; //this declares the variable choice, a character which will store the process chosen by the user in the menu
-    char phrase[1024]; //declares the phrase variable, a string in which the message will be stored so that it can be accessed in functions. It is of type char with a size of 2048.
-    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //declares the alphabet string and initialises it to ABCDEFGHIJKLMNOPQRSTUVWXYZ
-    char encryptionKey[200]; //declares the substitution encryption key variable, a string in which the substitution cipher key will be stored so that it can be accessed in functions.
+    char phrase[3000]; //declares the phrase variable, a string in which the message will be stored so that it can be accessed in functions. It is of type char with a size of 2048.
+    char alphabet[30]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //declares the alphabet string and initialises it to ABCDEFGHIJKLMNOPQRSTUVWXYZ
+    char encryptionKey[30]; //declares the substitution encryption key variable, a string in which the substitution cipher key will be stored so that it can be accessed in functions.
     float rotationKey; //declares the rotational encryption key variable, a float number in which the shifting value for rotation encryptions will be stored so that it can be accessed in functions
+    int countA=0, countB=0, countC=0, countD=0, countE=0, countF=0, countG=0, countH=0, countI=0, countJ=0, countK=0, countL=0, countM=0, countN=0, countO=0, countP=0, countQ=0, countR=0, countS=0, countT=0, countU=0, countV=0, countW=0, countX=0, countY=0, countZ=0;
+    int i=0, x=0, maxindex=0, maximum=-1e30;
+    int data[26];
     
     FILE *substitutionkey; //declares the use of a file which will be referred to as 'substitutionkey' within the code
     substitutionkey = fopen("substitutionEncryptionKey.txt", "r"); //the fopen function opens the file called 'substitutionEncryptionKey.txt' and the "r" indicates that the file will be read from. the contents of this file is assigned to 'substitutionkey'
@@ -51,7 +55,7 @@ int main()
     they should enter in order to select each particular process.
     */
     printf("Enter your data (message and encryption keys) into the appropriate files. \n"); 
-    printf("Choose a process: \na) rotational encryption\nb) rotational decryption\nc) substitution encryption\nd) substitution decryption with key\ne) decrypting an unseen text encrypted with a rotation cipher\nf) decrypting an unseen text encrypted with a substitution cipher\n");
+    printf("Choose a process: \na) rotational encryption\nb) rotational decryption\nc) substitution encryption\nd) substitution decryption with key\ne) decrypting an unseen text encrypted with a rotation cipher\n");
     scanf("%c", &choice); //this reads a character (%c) from the user and stores it in the variable 'choice' as declared earlier (line 29)
 
     /*
@@ -97,8 +101,126 @@ int main()
             printf(" \n"); //a new line is printed afterwards because eclipse che prints straight after the end of the code so this makes it look nicer and clearer for the user
             break; //the break statement tells the program to exit the switch case chunk of code and move on
         case 'e': //decrypting unseen text encrypted with a rotation cipher
-            printf("Enter phrase that was encrypted: \n");
-            scanf("%[^\n]s", phrase);
+            fscanf(input, "%[^\n]s", phrase);
+            while(phrase[i] != EOF)
+            {
+                x=phrase[i];
+                switch(x)
+                {
+                    case 65: countA++; break;
+                    case 66: countB++; break;
+                    case 67: countC++; break;
+                    case 68: countD++; break;
+                    case 69: countE++; break;
+                    case 70: countF++; break;
+                    case 71: countG++; break;
+                    case 72: countH++; break;
+                    case 73: countI++; break;
+                    case 74: countJ++; break;
+                    case 75: countK++; break;
+                    case 76: countL++; break;
+                    case 77: countM++; break;
+                    case 78: countN++; break;
+                    case 79: countO++; break;
+                    case 80: countP++; break;
+                    case 81: countQ++; break;
+                    case 82: countR++; break;
+                    case 83: countS++; break;
+                    case 84: countT++; break;
+                    case 85: countU++; break;
+                    case 86: countV++; break;
+                    case 87: countW++; break;
+                    case 88: countX++; break;
+                    case 89: countY++; break;
+                    case 90: countZ++; break;
+                    default: break;
+                }
+                i++;
+                x=0;
+            } 
+            
+            data[0]=countA; data[1]=countB; data[2]=countC; data[3]=countD; data[4]=countE; data[5]=countF; 
+            data[6]=countG; data[7]=countH; data[8]=countI; data[9]=countJ; data[10]=countK; data[11]=countL; 
+            data[12]=countM; data[13]=countN; data[14]=countO; data[15]=countP; data[16]=countQ; data[17]=countR; 
+            data[18]=countS; data[19]=countT; data[20]=countU; data[21]=countV; data[22]=countW; data[23]=countX; 
+            data[24]=countY; data[25]=countZ;
+            
+            i=0;
+            while(i<26)  
+            {
+                if(data[i]>maximum)
+                {
+                    maximum=data[i];    //the new maximum is assigned to the element number i
+                    maxindex=i;     //max index is set as i
+                }
+                i++;    //add another
+            }
+            printf("If E is the most common letter in the decryption, the decryption will be: \n");
+            if(maxindex+65-'E' <= 0)
+            {
+                rotationKey = (maxindex+65) - 'E' + 26;
+            }
+            else if(maxindex+65 - 'E' > 0)
+            {
+                rotationKey = (maxindex+65) - 'E';
+            }
+            unseenrotdecrypt(phrase, rotationKey);
+            
+            printf("\n\nIf T is the most common letter in the decryption, the decryption will be: \n");
+            if(maxindex+65-'T' <= 0)
+            {
+                rotationKey = (maxindex+65) - 'T' + 26;
+            }
+            else if(maxindex+65 - 'T' > 0)
+            {
+                rotationKey = (maxindex+65) - 'T';
+            }
+            unseenrotdecrypt(phrase, rotationKey);
+    
+            printf("\n\nIf A is the most common letter in the decryption, the decryption will be: \n");
+            if(maxindex+65-'A' <= 0)
+            {
+            rotationKey = (maxindex+65) - 'A' + 26;
+            }
+            else if(maxindex+65 - 'A' > 0)
+            {
+                rotationKey = (maxindex+65) - 'A';
+            }
+            unseenrotdecrypt(phrase, rotationKey);
+            
+            printf("\n\nIf O is the most common letter in the decryption, the decryption will be: \n");
+            if(maxindex+65-'O' <= 0)
+            {
+                rotationKey = (maxindex+65) - 'O' + 26;
+            }
+            else if(maxindex+65 - 'O' > 0)
+            {
+                rotationKey = (maxindex+65) - 'O';
+            }
+            unseenrotdecrypt(phrase, rotationKey);
+            
+            printf("\n\nIf R is the most common letter in the decryption, the decryption will be: \n");
+            if(maxindex+65-'R' <= 0)
+            {
+                rotationKey = (maxindex+65) - 'R' + 26;
+            }
+            else if(maxindex+65 - 'R' > 0)
+            {
+                rotationKey = (maxindex+65) - 'R';
+            }
+            unseenrotdecrypt(phrase, rotationKey);
+            
+            printf("\n\nIf I is the most common letter in the decryption, the decryption will be: \n");
+            if(maxindex+65-'I' <= 0)
+            {
+                rotationKey = (maxindex+65) - 'I' + 26;
+            }
+            else if(maxindex+65 - 'I' > 0)
+            {
+                rotationKey = (maxindex+65) - 'I';
+            }
+            unseenrotdecrypt(phrase, rotationKey);
+            printf("\n");
             break;
         case 'f':
             
@@ -202,7 +324,7 @@ char subencrypt(char *phrase, char *encryptionKey)
     char x=0; //declares and initialises the char variable x, which will be used to count through the alphabet in order to match each letter of the phrase to the alphabet, so that it can then be changed into the corresponding letter of the cipher text. x marks this position
     FILE *output; //declares the file which will be referred to as output in the code whenever it is used
     output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'
-    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //declares and initialises a string as the alphabet. Each letter of the phrase will be matched to this until the correct one is found, so it can be changed into the corresponding letter of the cipher text.
+    char alphabet[30]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //declares and initialises a string as the alphabet. Each letter of the phrase will be matched to this until the correct one is found, so it can be changed into the corresponding letter of the cipher text.
     while(phrase[i] != EOF) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
     {
         if(phrase[i]>=65 && phrase[i]<=90) //if the letter being analysed is a capital letter, this block of code will execute
@@ -244,7 +366,7 @@ char subdecrypt(char *phrase, char *encryptionKey)
     char x=0; //declares and initialises the char variable x, which will be used to count through the alphabet in order to match each letter of the phrase to the alphabet, so that it can then be changed into the corresponding letter of the cipher text. x marks this position
     FILE *output; //declares the file which will be referred to as output in the code whenever it is used
     output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'
-    char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //declares and initialises a string as the alphabet. Each letter of the phrase will be matched to this until the correct one is found, so it can be changed into the corresponding letter of the cipher text.
+    char alphabet[30]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //declares and initialises a string as the alphabet. Each letter of the phrase will be matched to this until the correct one is found, so it can be changed into the corresponding letter of the cipher text.
     while(phrase[i] != EOF) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
     {
         if(phrase[i]>=65 && phrase[i]<=90) //if the letter being analysed is a capital letter, this block of code will execute
@@ -267,5 +389,50 @@ char subdecrypt(char *phrase, char *encryptionKey)
             fprintf(output, "%c", phrase[i]); //the char phrase[i] is printed to the file 'output' unchanged
         }
         i++; //increments i so that for the next while loop, the next letter of the phrase is analysed and decrypted 
+    }
+}
+
+char unseenrotdecrypt(char *phrase, float rotationKey)
+{
+    FILE *output;
+    output = fopen("phrasePrinted.txt", "w");
+    
+    int i=0; //i is the variable that will count through each individual character of the phrase string. It is initialised as 0 to start at the beginning of the string.
+    while(phrase[i] != EOF) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
+    {
+        if(phrase[i]<=64 || phrase[i]>=91) //if the value of the phrase[i] character in the original plain English text message is something other than a capital letter, this block of code will execute
+        {
+            phrase[i] = phrase[i]; //phrase[i] remains unchanged
+        }  
+        else if((phrase[i]-rotationKey)>=65 && (phrase[i]-rotationKey)<=90) //if the new decrypted ASCII falls within the capital letter range of 65 and 90 (i.e. it remains a capital letter not a different ASCII character that isn't English) this block of code will execute
+        {
+            phrase[i] = phrase[i] - rotationKey; //the ASCII value of phrase[i] is shifted back by the rotationKey in order to decrypt it into the plain English ASCII character
+        }
+        else if((phrase[i]-rotationKey)<65) //if the new decrypted ASCII value falls below the capital letter range
+        {
+            phrase[i] = phrase[i] + 26 - rotationKey; //phrase[i] is shifted back by the rotationKey, but 26 is added (the number of letters in the alphabet) so that it stays within the capital letter range
+        }
+        i++;
+    }
+    
+    printf("%s", phrase);
+    fprintf(output, "%s", phrase);
+    
+    i=0;
+    while(phrase[i] != EOF)
+    {
+        if(phrase[i]<=64 || phrase[i]>=91)
+        {
+            phrase[i] = phrase[i];
+        }
+        else if(((phrase[i]+rotationKey)>=65) && ((phrase[i]+rotationKey)<=90))
+        {
+            phrase[i]=phrase[i]+rotationKey;
+        }
+        else if((phrase[i]+rotationKey)>90)
+        {
+            phrase[i]=phrase[i]-26+rotationKey;
+        }
+        i++;
     }
 }
