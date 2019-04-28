@@ -120,14 +120,14 @@ equal to 26 to work.
 */
 char rotencrypt(char *phrase, float rotationKey) 
 { 
-    char i=0; //i is the variable that will count through each individual character of the phrase string. It is initialised as 0 to start at the beginning of the string.
+    int i=0; //i is the integer variable that will count through each individual character of the phrase string. It is initialised as 0 to start at the beginning of the string.
     FILE *output; //declares the file which will be referred to as output in the code whenever it is used
     output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'
     FILE *input;
     input = fopen("data.txt", "r");
     fscanf(input, "%[^\n]s", phrase);
     
-    while(i<=100) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
+    while(phrase[i] != EOF) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
     {
         /*
         phrase[i] + rotationKey utilises the ASCII values of each letter. A has the value 65, and Z the value 90. All capital letters are
@@ -162,10 +162,10 @@ and the file 'output'. The rotationKey must be greater than or equal to zero and
 */
 char rotdecrypt(char *phrase, float rotationKey) 
 {   
-    char i=0; //i is the variable that will count through each individual character of the phrase string. It is initialised as 0 to start at the beginning of the string.
+    int i=0; //i is the integer variable that will count through each individual character of the phrase string. It is initialised as 0 to start at the beginning of the string.
     FILE *output; //declares the file which will be referred to as output in the code whenever it is used
     output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'
-    while(phrase[i] != 0) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
+    while(phrase[i] != EOF) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
     {
         /*
         phrase[i] - rotationKey utilises the ASCII values of each letter. A has the value 65, and Z the value 90. All capital letters are
@@ -202,12 +202,12 @@ each encrypted letter one at a time to both the screen (stdout) and the file 'ou
 */
 char subencrypt(char *phrase, char *encryptionKey)
 {  
-    char i=0; //declares and initialises the char variable i, which will be used to count through each letter of the phrase/message. It is set to 0 in order to begin at the first letter.
+    int i=0; //declares and initialises the integer variable i, which will be used to count through each letter of the phrase/message. It is set to 0 in order to begin at the first letter.
     char x=0; //declares and initialises the char variable x, which will be used to count through the alphabet in order to match each letter of the phrase to the alphabet, so that it can then be changed into the corresponding letter of the cipher text. x marks this position
     FILE *output; //declares the file which will be referred to as output in the code whenever it is used
     output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'
     char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //declares and initialises a string as the alphabet. Each letter of the phrase will be matched to this until the correct one is found, so it can be changed into the corresponding letter of the cipher text.
-    while(phrase[i] !=  0) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
+    while(phrase[i] != EOF) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
     {
         if(phrase[i]>=65 && phrase[i]<=90) //if the letter being analysed is a capital letter, this block of code will execute
         {
@@ -244,12 +244,12 @@ each decrypted letter one at a time to both the screen (stdout) and the file 'ou
 */
 char subdecrypt(char *phrase, char *encryptionKey)
 {
-    char i=0; //declares and initialises the char variable i, which will be used to count through each letter of the phrase/message. It is set to 0 in order to begin at the first letter.
+    int i=0; //declares and initialises the integer variable i, which will be used to count through each letter of the phrase/message. It is set to 0 in order to begin at the first letter.
     char x=0; //declares and initialises the char variable x, which will be used to count through the alphabet in order to match each letter of the phrase to the alphabet, so that it can then be changed into the corresponding letter of the cipher text. x marks this position
     FILE *output; //declares the file which will be referred to as output in the code whenever it is used
     output = fopen("messageOutput.txt", "w"); //opens the file, indicates it will be written to by the "w", and assigns it to 'output'
     char alphabet[200]="ABCDEFGHIJKLMNOPQRSTUVWXYZ"; //declares and initialises a string as the alphabet. Each letter of the phrase will be matched to this until the correct one is found, so it can be changed into the corresponding letter of the cipher text.
-    while(phrase[i] != 0) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
+    while(phrase[i] != EOF) //the content of this while loop will continue to execute until the computer finds that the character 'phrase[i]' is equal to 0, because then it no longer fits the condition of != 0 (not equal to 0). It will occur until a new line is reached.
     {
         if(phrase[i]>=65 && phrase[i]<=90) //if the letter being analysed is a capital letter, this block of code will execute
         {
